@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- css reset -->
+  <link rel="stylesheet" href="css/css_reset.css">
+
+  <!-- 引用google字體 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* 模組化css */
+    * {
+      font-family: 'Noto Sans TC', sans-serif !important;
+    }
+    :root {
+      --primary_color1: #204379;
+      --primary_color2: #B57556;
+      --primary_color3: #DAE4F1;
+      --primary_color4: #e2d9d3;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    img, label, input, select, option, figcaption, a {
+      display: block;
+    }
+    body {
+      background: var(--primary_color1);
+      position: relative;
+      z-index: -999;
+    }
+    .flex {
+      display: flex;
+    }
+    .text-bold {
+      font-weight: bold;
+    }
+    .visible {
+      visibility: visible !important;
+    }
+
+    /* section1 */
+    .section1 {
+      background: var(--primary_color1);
+      background-image: url(img/白色海浪.svg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      padding-bottom: 150px;
+      position: relative;
+      z-index: -5;
+    }
+    .section1 span {
+      display: block;
+    }
+    .section1 .title {
+      text-align: center;
+      padding-top: 10px;
+      color: white;
+    }
+    .section1 .up_text {
+      font-size: 32px;
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      letter-spacing: 5px;
+    }
+    .section1 .down_text {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 35px;
+      letter-spacing: 5px;
+    }
+
+    .section1 button {
+      width: 150px;
+      height: 55px;
+      display: block;
+      margin: 0 auto;
+      background: var(--primary_color2);
+      border: none;
+      border-radius: 29px;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .section1 button a {
+      width: 100%;
+      height: 100%;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      letter-spacing: 10px;
+      text-indent: 13px;
+      text-decoration: none;
+      line-height: 50px;
+    }
+    .section1 button::after {
+      opacity: 0;
+      content: '';
+      width: calc(100% + 6px);
+      height: calc(100% + 6px);
+      border-radius: 29px;
+      background: linear-gradient(124deg,#efdbc8, #e9c87f, #b2e1ea, #90cae5, 
+                #f5caf4, #dfc9f9);
+      background-size: 400%;
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      z-index: -2;
+      filter: blur(10px);
+      transition: all 0.3s ease-in-out;
+      animation: btn_color 20s linear infinite;
+    }
+    .section1 button:hover::after{
+      opacity: 1;
+    }
+    .section1 button:active {
+      background: #d3a995;
+    }
+    @keyframes btn_color {
+      0%{ background-position: 0 0; }
+      50%{ background-position: 400% 0; }
+      100%{ background-position: 0 0; }
+    }
+    .section1_content {
+      width: 75%;
+      margin: 0 auto;
+      background: var(--primary_color3);
+      border: 1px solid var(--primary_color2);
+      border-radius: 10px;
+      position: relative;
+      z-index: 3;
+    }
+    @media screen and (max-width: 768px) {
+      .section1_content {
+        width: 90%;
+      }
+    }
+    .section1_content .flex {
+      justify-content: center;
+      margin: 20px 0px;
+    }
+    .section1_content .flex_item {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+    .section1_content .flex_item>h3 {
+      color:var(--primary_color1);
+      font-size: 18px;
+      line-height: 40px;
+    }
+    .section1_content ol {
+      margin: 20px 0 20px 15px;
+    }
+    .section1_content ol>li {
+      color:var(--primary_color1);
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    .bubble_boat {
+      position: absolute;
+      top: -20px;
+      right: 5px;
+      z-index: 20;
+    }
+    /* 船漿動畫 */
+    .bubble_boat_tool{
+      position: absolute;
+      top: 12px;
+      left: 19px;
+      /* border: 1px solid purple; */
+      transform: rotate(20deg);
+      animation: 4s bubble_boat_tool infinite;
+    }
+    @keyframes bubble_boat_tool {
+      0% {
+      transform: rotate(30deg);
+      }
+      50% {
+        transform: rotate(-10deg);
+      }
+      100% {
+      transform: rotate(30deg);
+      }
+    }
+    .bubble_group {
+      width: 35px;
+      height: 35px;
+      position: absolute;
+      top: -10px;
+      right: 14px;
+    }
+    /* bubble動畫組 */
+    .bubble_group>.small_bubble {
+      position: absolute;
+      top: 0;
+      right: 0;
+      animation: 5s bubble infinite linear;
+    }
+    .bubble_group>.big_bubble {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      animation: 6s bubble infinite linear;
+    }
+    @keyframes bubble {
+      0% { 
+        transform: translateY(0);
+      }
+      50% {
+        opacity: 100;
+      }
+      100% { 
+        transform: translateY(-70px);
+        opacity: 0;
+      }
+    }
+    .firework_boat {
+      position: absolute;
+      left: 30px;
+      bottom: -50px;
+    }
+    .fire_boat_tool {
+      position: absolute;
+      top: 7px;
+      left: 5px;
+      animation: 4s fire_boat_tool infinite;
+    }
+    @keyframes fire_boat_tool {
+      0% { 
+        transform: rotate(5deg);
+      }
+      50% {
+        transform: rotate(-30deg);
+      }
+      100% { 
+        transform: rotate(5deg);
+      }
+    }
+    /* firework動畫組 */
+    .firework_pic {
+      position: absolute;
+      bottom: -50px;
+      animation: 5s firework infinite linear;
+    }
+    @keyframes firework {
+      0% { 
+        transform: scale(0.3);
+        opacity: 100;
+      }
+      10% {
+        transform: scale(1);
+        opacity: 100;
+      }
+      90% {
+        transform: scale(1.4);
+        opacity: 0;
+      }
+      100% { 
+        transform: scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    /* section2 */
+    .section2 {
+      background: var(--primary_color4);
+      padding-bottom: 50px;
+    }
+    /* wave動畫組 */
+    .wave_frame {
+      margin-top: -5px;
+      overflow: hidden;
+    }
+    .wave_pic {
+      width: 105vw;
+      animation: 22s wave_pic infinite linear;
+    }
+    .wave_pic_other {
+      margin-left: -2px;
+    }
+    @keyframes wave_pic {
+      0% { transform: translateX(0);}
+      100% { transform: translateX(-105vw);}
+    }
+    .section2 .form {
+      width: calc(65vw + 200px);
+      margin: 40px auto 0px auto;
+    }
+    @media screen and (max-width: 768px) {
+      .section2 .form {
+        width: 90%;
+      }
+    }
+    .section2 fieldset {
+      border: 2px solid var(--primary_color2);
+      padding-bottom: 25px;
+      margin-bottom: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #49484840;
+    }
+    .section2 fieldset .legend {
+      margin: 0 auto;
+      position: relative;
+      text-align: center;
+    }
+    .section2 fieldset legend .form_title{
+      color: var(--primary_color2);
+      background: white;
+      border: 2px solid var(--primary_color2);
+      font-size: 18px;
+      text-align: center;
+      line-height: 50px;
+      letter-spacing: 10px;
+      text-indent: 10px;
+      margin: 0 auto;
+      padding: 0px 20px;
+      border-radius: 30px;
+      box-shadow: 0 0 20px #49484840;
+    }
+    .section2 fieldset .turtle_frame {
+      position: absolute;
+      top: 0;
+      right: -45px;
+    }
+    .section2 fieldset .turtle_pic {
+      display: inline-block;
+    }
+    .section2 label {
+      color: var(--primary_color1);
+      margin: 20px 0px 5px 20px;
+    }
+    .section2 label .hint {
+      color: var(--primary_color2);
+    }
+    .section2 input {
+      width: 90%;
+      height: 57px;
+      border: 1px solid var(--primary_color1);
+      border-radius: 20px;
+      margin-left: 20px;
+      padding: 0;
+      padding-left: 15px;
+      font-size: 18px;
+    }
+    .section2 .select_group{
+      position: relative;
+    } 
+    .section2 select {
+      width: 91.9%;
+      height: 57px;
+      border: 1px solid var(--primary_color1);
+      border-radius: 20px;
+      margin-left: 20px;
+      padding: 0;
+      padding-left: 15px;
+      font-size: 18px;
+    }
+    .section2 input:focus, .section2 select:focus{
+      outline: none;
+      border: 2px solid #93bbf9;
+    }
+    @media screen and (max-width: 768px) {
+      .section2 input {
+        width: 85%;
+      }
+      .section2 select {
+        width: 89.5%;
+      }
+    }
+    .error_msg_group {
+      visibility: hidden;
+    }
+    .error_msg {
+      position: absolute;
+      color: #e06d6d;
+      margin-left: 20px;
+    }
+    .section2 button {
+      display: block;
+      margin: 0 auto;
+      color: white;
+      background: var(--primary_color2);
+      border: none;
+      font-size: 17px;
+      font-weight: bold;
+      letter-spacing: 5px;
+      padding: 17px 58px;
+      border-radius: 29px;
+      box-shadow: 0 0 10px #28232359;
+      cursor: pointer;
+      animation: form_btn 2s infinite linear;
+    }
+    .section2 button:active {
+      background: #d3a995;
+    }
+    .section2 .btn_group {
+      position: relative;
+    }
+    .section2 .success_btn {
+      color: #e6ffb1;
+      text-indent: 15px;
+      position: relative;
+    }
+    .section2 .failure_btn {
+      color: #ffe3e3;
+      text-indent: 15px;
+      position: relative;
+    }
+    .section2 .success_btn img, .section2 .failure_btn img {
+      position: absolute;
+      top: 50%;
+      left: 35px;
+      transform: translateY(-50%);
+    }
+    /* @keyframes form_btn {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    } */
+
+    /* section3 */
+    .section3 {
+      background: var(--primary_color4);
+      background-image: url(img/抽獎沙子.svg);
+      padding-top: 50px;
+      margin-top: -2px;
+    }
+    .section3 .flex {
+      width: 610px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .section3 .card {
+      width: 178px;
+      height: 112px;
+      background: white;
+      border-radius: 20px;
+      margin: 0px 10px 40px 10px;
+      box-shadow: 0 10px 0px #edeef0;
+      position: relative;
+    }
+    @media screen and (max-width: 631px) {
+      .section3 .flex {
+        width: 99%;
+        justify-content: center;
+      }
+      .section3 .card {
+        width: 160px;
+      }
+    }
+    .section3 .card .green_certificate_frame, .section3 .card .silver_certificate_frame {
+      position: absolute;
+      left: 50%;
+      top: -25%;
+      transform: translateX(-50%);
+    }
+    .section3 .card figcaption {
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+    .green_certificate_frame figcaption {
+      transform: translate(-50%, -80%);
+    }
+    .silver_certificate_frame figcaption {
+      transform: translate(-50%, -50%);
+    }
+    .green_hint, .silver_hint {
+      width: 45px;
+      height: 23px;
+      border-radius: 11.5px;
+      text-align: center;
+      line-height: 23px;
+      position: absolute;
+      top: 10px;
+      right: 5px;
+    }
+    .section3 .card .green_hint {
+      color: #b3b960;
+      border: 1px solid #b3b960;
+    }
+    .section3 .card .silver_hint {
+      color: #a0bcc8;
+      border: 1px solid #a0bcc8;
+    }
+    .green {
+      color: #b3b960;
+    }
+    .silver {
+      color: #a0bcc8;
+    }
+    .section3 .card .text {
+      width: 100%;
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      position: absolute;
+      top: 60%;
+    }
+
+    /* section4 */
+    .section4 {
+      background: var(--primary_color4);
+      padding-top: 40px;
+      padding-bottom: 30px;
+      margin-top: -2px;
+    }
+    .section4 .dialogue {
+      justify-content: center;
+      align-items: center;
+    }
+    .section4 .text1 {
+      color: var(--primary_color2);
+      text-align: center;
+      padding-bottom: 8px;
+    }
+    .section4 .text2 {
+      color: var(--primary_color1);
+      text-align: center;
+      line-height: 20px;
+    }
+    .section4 .lighthouse_pic {
+      margin: 0 auto;
+    }
+
+    /* section5 */
+    .section5 {
+      background: var(--primary_color1);
+      padding-top: 50px;
+      padding-bottom: 40px;
+    }
+    .section5 h3 {
+      color: white;
+      font-size: 20px;
+      text-align: center;
+      line-height: 40px;
+      padding-bottom: 20px;
+    }
+    .section5 .market_pic {
+      width: 400px;
+      margin: 0 auto;
+    }
+    @media screen and (max-width: 450px) {
+      .section5 .market_pic {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="section1">
+    <h1 class="title">
+      <span class="up_text">There is no one</span>
+      <span class="down_text">who loves pain</span>      
+    </h1>
+    <button>
+      <a href="#form">FORM</a>
+    </button>
+    <div class="section1_content">
+      <div class="flex">
+        <figure class="flex_item">
+          <img src="img/cactus.svg" alt="">
+        </figure>
+        <div class="flex_item">
+          <h3 class="text-bold">paragraph</h3>
+        </div>
+        <figure class="flex_item">
+          <img src="img/cactus.svg" alt="">
+        </figure>
+      </div>
+      <ol>
+        <li>1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, dolore.</li>
+      </ol>
+      <div class="flex">
+        <figure class="flex_item">
+          <img src="img/cactus.svg" alt="">
+        </figure>
+        <div class="flex_item">
+          <h3 class="text-bold">paragraph</h3>
+        </div>
+        <figure class="flex_item">
+          <img src="img/cactus.svg" alt="">
+        </figure>
+      </div>
+      <ol>
+        <li>1. Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+        <li>2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, tempora.</li>
+        <li>3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, adipisci!</li>
+        <li>4. Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+      </ol>
+      <div class="bubble_plan_group">
+        <figure class="bubble_boat">
+          <img src="img/bubble_boat.svg" alt="泡泡船">
+          <img src="img/bubble_boat_tool.svg" alt="泡泡船漿" class="bubble_boat_tool">
+        </figure>
+        <figure class="bubble_group">
+          <img src="img/小泡泡.svg" alt="小泡泡" class="small_bubble">
+          <img src="img/大泡泡.svg" alt="大泡泡" class="big_bubble">
+        </figure>
+      </div>
+      <div class="firework_plan_group">
+        <figure class="firework_boat">
+          <img src="img/fire_boat.svg" alt="煙火船">
+          <img src="img/fire_boat_tool.svg" alt="煙火船漿" class="fire_boat_tool">
+        </figure>
+        <figure>
+          <img src="img/煙火.svg" alt="煙火" class="firework_pic">
+        </figure>
+      </div>
+    </div>
+  </section>
+  <section class="section2">
+    <figure class="wave_frame flex">
+      <img src="img/海浪.png" alt="海浪" class="wave_pic">
+      <img src="img/海浪.png" alt="海浪" class="wave_pic wave_pic_other">
+      <img src="img/海浪.png" alt="海浪" class="wave_pic wave_pic_other">
+      <img src="img/海浪.png" alt="海浪" class="wave_pic wave_pic_other">
+      <img src="img/海浪.png" alt="海浪" class="wave_pic wave_pic_other">
+    </figure>
+    <form action="" class="form" id="form">
+      <fieldset>
+        <legend class="legend">
+          <div class="form_title text-bold">FORM</div>
+          <figure class="turtle_frame">
+            <img src="img/turtle.svg" alt="turtle" class="turtle_pic">
+          </figure>
+        </legend>
+        <label for="">store<span class="hint"> *</span></label>
+        <select name="" id="">
+          <option value="store1">store1</option>
+          <option value="store2">store2</option>
+        </select>
+        <label for="">name<span class="hint"> *</span></label>
+        <input type="text" placeholder="placeholder txt" class="name_input">
+        <div class="error_msg_group">
+          <span class="error_msg">require</span>
+        </div>
+        <label for="">phone<span class="hint"> *</span></label>
+        <input type="number" placeholder="placeholder txt" class="phone_input">
+        <div class="error_msg_group">
+          <span class="error_msg">require</span>
+        </div>
+        <label for="">Amount of consumption<span class="hint"> *</span></label>
+        <input type="number" placeholder="placeholder txt" class="amount_input" min="1">
+        <div class="error_msg_group">
+          <span class="error_msg">require</span>
+        </div>
+        <label for="">payment<span class="hint"> *</span></label>
+        <select name="" id="">
+            <option value="digital payment">digital payment</option>
+            <option value="ATM">ATM</option>
+        </select>
+      </fieldset>
+      <button class="submit_btn">submit</button>
+      <!-- 隱藏成功、失敗按鈕 -->
+      <button class="success_btn" style="display: none;">
+        <img src="img/success.svg" alt="">
+        scuess
+      </button>
+      <button class="failure_btn" style="display: none;">
+        <img src="img/failure.svg" alt="">
+        failure
+      </button>
+    </form>
+  </section>
+  <section class="section3">
+    <div class="card_group flex">
+      <div class="card flex_item">
+        <figure class="green_certificate_frame">
+          <img src="img/green_certificate.svg" alt="green_certificate" class="green_certificate">
+          <figcaption>A</figcaption>
+        </figure>
+        <div class="green_hint">ONE</div>
+        <div class="text green">dehumidifier</div>
+      </div>
+      <div class="card flex_item">
+        <figure class="green_certificate_frame">
+          <img src="img/green_certificate.svg" alt="green_certificate" class="green_certificate">
+          <figcaption>B</figcaption>
+        </figure>
+        <div class="green_hint">ONE</div>
+        <div class="text green">range hood</div>
+      </div>
+      <div class="card flex_item">
+        <figure class="green_certificate_frame">
+          <img src="img/green_certificate.svg" alt="green_certificate" class="green_certificate">
+          <figcaption>C</figcaption>
+        </figure>
+        <div class="green_hint">ONE</div>
+        <div class="text green">vacuum cleaner</div>
+      </div>
+      <div class="card flex_item">
+        <figure class="silver_certificate_frame">
+          <img src="img/silver_certificate.svg" alt="silver_certificate" class="silver_certificate">
+          <figcaption>D</figcaption>
+        </figure>
+        <div class="silver_hint">ONE</div>
+        <div class="text silver">toaster</div>
+      </div>
+      <div class="card flex_item">
+        <figure class="silver_certificate_frame">
+          <img src="img/silver_certificate.svg" alt="silver_certificate" class="silver_certificate">
+          <figcaption>E</figcaption>
+        </figure>
+        <div class="silver_hint">ONE</div>
+        <div class="text silver">scale</div>
+      </div>
+      <div class="card flex_item">
+        <figure class="silver_certificate_frame">
+          <img src="img/silver_certificate.svg" alt="silver_certificate" class="silver_certificate">
+          <figcaption>F</figcaption>
+        </figure>
+        <div class="silver_hint">ONE</div>
+        <div class="text silver">straightening iron</div>
+      </div>
+      <div class="card flex_item">
+        <figure class="silver_certificate_frame">
+          <img src="img/silver_certificate.svg" alt="silver_certificate" class="silver_certificate">
+          <figcaption>G</figcaption>
+        </figure>
+        <div class="silver_hint">FIVE</div>
+        <div class="text silver">vacuum cleaner</div>
+      </div>
+      <div class="card flex_item">
+        <figure class="silver_certificate_frame">
+          <img src="img/silver_certificate.svg" alt="silver_certificate" class="silver_certificate">
+          <figcaption>H</figcaption>
+        </figure>
+        <div class="silver_hint">TEN</div>
+        <div class="text silver">rice cooker</div>
+      </div>
+    </div>
+  </section>
+  <section class="section4">
+    <div class="dialogue flex text-bold">
+      <div>
+        <img src="img/斜線1.svg" alt="斜線">
+      </div>
+      <div>
+        <div class="text1">13.32</div>
+        <div class="text2">
+          who seeks after it and
+          <br>
+          wants to have it
+        </div>
+      </div>
+      <div>
+        <img src="img/斜線2.svg" alt="斜線">
+      </div>
+    </div>
+    <figure class="img_frame">
+      <img src="img/lighthouse.svg" alt="lighthouse_pic" class="lighthouse_pic">
+    </figure>
+  </section>
+  <section class="section5">
+    <h3 class="text-bold">
+      Lorem ipsum dolor sit.
+      <br>
+      Lorem, ipsum dolor.
+    </h3>
+    <figure>
+      <img src="img/market.svg" alt="market_pic"
+      class="market_pic">
+    </figure>
+  </section>
+  <script>
+    const nameInput = document.querySelector('.name_input')
+    const phoneInput = document.querySelector('.phone_input')
+    const amountInput = document.querySelector('.amount_input')
+    const errMsgGroup = document.querySelectorAll('.error_msg_group')
+    const inputArr = [nameInput, phoneInput, amountInput]
+
+    // 下方常數還沒有使用到
+    const submitBtn = document.querySelector('.submit_btn')
+    const successBtn = document.querySelector('.success_btn ')
+    const failureBtn = document.querySelector('.failure_btn')
+    const btnArr = [submitBtn, successBtn, failureBtn]
+
+    inputArr.forEach( (v, i) => {
+      v.addEventListener('input', () => {
+        if (v.value === '') {
+          v.setAttribute('style', 'border: 2px solid #e06d6d')
+          errMsgGroup[i].setAttribute('style', 'visibility: visible;')
+        } else {
+          v.setAttribute('style', 'border: 2px solid initial')
+          errMsgGroup[i].setAttribute('style', 'visibility: hidden;')
+        }
+      })  
+    });
+
+    phoneInput.addEventListener('input', () => {
+      if (phoneInput.value.length !== 10) {
+        console.log(this)
+        phoneInput.setAttribute('style', 'border: 2px solid #e06d6d')
+        errMsgGroup[1].setAttribute('style', 'visibility: visible;')
+        errMsgGroup[1].firstChild.nextSibling.textContent = '手機格式不正確'
+      }
+      if (phoneInput.value === '') {
+        errMsgGroup[1].firstChild.nextSibling.textContent = 'require'
+      }
+    })
+    
+    amountInput.addEventListener('input', () => {
+      if ( Number(amountInput.value) <= 0) {
+        amountInput.setAttribute('style', 'border: 2px solid #e06d6d')
+        errMsgGroup[2].setAttribute('style', 'visibility: visible;')
+        errMsgGroup[2].firstChild.nextSibling.textContent = '數目必須大於0'
+      }
+      if (amountInput.value === '') {
+        errMsgGroup[2].firstChild.nextSibling.textContent = 'require'
+      }
+    })
+
+  </script>
+</body>
+</html>
